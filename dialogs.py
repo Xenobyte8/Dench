@@ -41,7 +41,8 @@ async def startMission(callback: CallbackQuery, button: Button, manager: DialogM
     print(manager)
     widget = manager.dialog().find('gangstersWidget')
     gangsters=widget.get_checked(manager)
-    asyncio.create_task(playMission(manager.dialog_data['Mission'], gangsters,  manager.start_data['playerId']))
+    asyncio.create_task(playMission(manager.dialog_data['Mission'], gangsters, manager.start_data['message'],  manager.start_data['playerId']))
+    message=manager.start_data['message']
     await manager.done()
 
 async def selectMission(callback: CallbackQuery, widget: Any,manager: DialogManager, item_id: str):

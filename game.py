@@ -78,4 +78,5 @@ async def playMission(missionId, gangsters:'list', message:Message, owner=0):
    print(owner)
    result = checkMissionSuccess(missionId, gangsters)
    if result==False: changeMissionStatus(missionId, 'FREE', owner)
+   await message.answer(str(result))
    

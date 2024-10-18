@@ -23,14 +23,6 @@ async def start_handler(msg: Message):
 
 
 
-
-#@router.message()
-#async def message_handler(msg: Message):
-#    answer=ca.getClientById(str(msg.from_user.id))
-#    await msg.answer(str(answer[0]["pk"]))
-
-
-
 @router.message(Command("newBro"))
 async def CreateGangster(msg: Message):
     player=getPlayerByTg(msg.from_user.id)
@@ -54,4 +46,4 @@ async def GetFreeMissions(msg: Message):
 @router.message(Command("getMission"))
 async def test(msg: Message, dialog_manager: DialogManager):
     player=getPlayerByTg(msg.from_user.id)
-    await dialog_manager.start(GetMission.chooseMission, data={'playerId':str(player['id'])})
+    await dialog_manager.start(GetMission.chooseMission, data={'playerId':str(player['id']), 'message':msg})
