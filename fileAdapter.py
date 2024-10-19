@@ -144,7 +144,7 @@ def getAllMissions():
     return result
 
 
-def changeGangsterStatus(gangsterId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVAILABLE', 'DEAD'], mission):
+def changeGangsterStatus(gangsterId, missionId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVAILABLE', 'DEAD']):
     result=False
     file = open('./files/gangsters.csv', newline ='')
     with file:
@@ -154,7 +154,7 @@ def changeGangsterStatus(gangsterId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVA
     for row in rows:
         if row[0]==str(gangsterId):
             row[8]=str(state)
-            row[9] = str(mission)
+            row[9] = str(missionId)
             result=True
 
     with open('./files/gangsters.csv', 'w', newline='') as file:

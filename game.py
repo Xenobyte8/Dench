@@ -71,7 +71,7 @@ def checkMissionSuccess(missionId, gangstersId:'list' ):
 async def playMission(missionId, gangsters:'list', message:Message, owner=0):
    changeMissionStatus(missionId, 'ACTIVE', owner)
    for i in gangsters:
-      changeGangsterStatus(i, 'MISSION', missionId)
+      changeGangsterStatus(gangsterId = i, missionId = missionId, state='MISSION')
    await asyncio.sleep(10)
    print(missionId)
    print(gangsters)
