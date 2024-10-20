@@ -1,19 +1,37 @@
 import sqlite3
 
-def addPlayer(player_id, telegram_id, player_money):
-    file = open('./files/players.csv', 'a+', newline ='')
-    with file:
-        writer = csv.writer(file)
-        writer.writerow([id,tgId,money])
-    file.close()
+def addPlayer(id, telegram_id, player_money):
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(
+                    f'''
+                    INSERT INTO players (id, telegram_id, player_money) VALUES ('{id}', '{telegram_id}', '{player_money}')
+                    '''
+                    )
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            pass
 
 
 def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission):
-    file = open('./files/gangsters.csv', 'a+', newline ='')
-    with file:
-        writer = csv.writer(file)
-        writer.writerow([id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission])
-    file.close()
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(f'''INSERT INTO players (id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission)
+                                    VALUES ('{id}','{owner}','{name}','{athletics}','{charisma}','{shooting}','{stealth}','{intelligence}','{state}','{mission}')'''
+                                    )
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            pass
 
 def addMission(id,name,description,price,reward,tryDifficulty,tryCharacteristic,status,owner,time):
     file = open('./files/missions.csv', 'a+', newline ='')
@@ -101,15 +119,40 @@ def GangsterCharachteristic(id, charac: 'str'=['athletics', 'charisma', 'shootin
 
 
 def getGangstersByOwner(owner):
-    result=[]
-    file = open('./files/gangsters.csv', newline ='')
-    with file:
-        reader = csv.reader(file)
-        for row in reader:
-            if row[1]==str(owner):
-                result.append({'id': row[0], 'owner': row[1], 'name': row[2], 'athletics': row[3], 'charisma': row[4],'shooting': row[5], 'stealth':row[6],'intelligence':row[7]})
-    file.close()
+    result = []
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(
+                    f"SELECT * FROM gangsters where owner = '{owner}'"
+                )
+                gangsters_as_tuples = cursor.fetchall()
+                # Преобразуем результаты в список словарей
+                gangsters_as_dicts = []
+                for i in gangsters_as_tuples:
+                    gangster_dict = {
+                    'id': i[0],
+                    'owner': i[1],
+                    'name' : i[2],
+                    'athletics' : i[3],
+                    'charisma' : i[4],
+                    'shooting' : i[5],
+                    'stealth' : i[6],
+                    'intelligence' : i[7],
+                    'state' : i[8],
+                    'mission' : i[9],
+                    }
+                gangsters_as_dicts.append(gangster_dict)
+            result = gangsters_as_dicts
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            print('smth went wrong, transaction aborted')
     return result
+
 
 def changeMissionStatus(id, state: 'str'=['FREE', 'ACTIVE', 'FINISHED'], owner=False):
     result=False
