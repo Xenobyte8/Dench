@@ -111,7 +111,7 @@ def getGangstersByOwner(owner):
     file.close()
     return result
 
-def changeMissionStatus(id, state: 'str'=['FREE', 'ACTIVE', 'FIFNISHED'], owner=False):
+def changeMissionStatus(id, state: 'str'=['FREE', 'ACTIVE', 'FINISHED'], owner=False):
     result=False
     file = open('./files/missions.csv', newline ='')
     with file:
@@ -144,7 +144,7 @@ def getAllMissions():
     return result
 
 
-def changeGangsterStatus(gangsterId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVAILABLE', 'DEAD']):
+def changeGangsterStatus(gangsterId, missionId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVAILABLE', 'DEAD']):
     result=False
     file = open('./files/gangsters.csv', newline ='')
     with file:
@@ -154,6 +154,7 @@ def changeGangsterStatus(gangsterId, state: 'str'=['AVAILABE', 'MISSION', 'UNAVA
     for row in rows:
         if row[0]==str(gangsterId):
             row[8]=str(state)
+            row[9] = str(missionId)
             result=True
 
     with open('./files/gangsters.csv', 'w', newline='') as file:
