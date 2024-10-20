@@ -15,11 +15,11 @@ def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,s
         writer.writerow([id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission])
     file.close()
 
-def addMission(id,name,description,price,reward,tryDifficulty,tryCharechteristic,status,owner,time):
+def addMission(id,name,description,price,reward,tryDifficulty,tryCharacteristic,status,owner,time):
     file = open('./files/missions.csv', 'a+', newline ='')
     with file:
         writer = csv.writer(file)
-        writer.writerow([id,name,description,price,reward,tryDifficulty,tryCharechteristic,status,owner,time])
+        writer.writerow([id,name,description,price,reward,tryDifficulty,tryCharacteristic,status,owner,time])
     file.close()
 
 def getPlayer(id):
@@ -59,7 +59,7 @@ def getMission(id):
     with file:
         reader = csv.reader(file)
         for row in reader:
-            if row[0]==str(id): result={'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryDifficulty': row[5], 'tryCharechteristic':row[6],'status':row[7], 'owner':row[8], 'time':row[9]}
+            if row[0]==str(id): result={'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryDifficulty': row[5], 'tryCharacteristic':row[6],'status':row[7], 'owner':row[8], 'time':row[9]}
     file.close()
     return result
 
@@ -70,7 +70,7 @@ def getAvailableMissions():
     with file:
         reader = csv.reader(file)
         for row in reader:
-            if row[7]=='FREE': result.append({'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryDifficulty': row[5], 'tryCharechteristic':row[6],'status':row[7], 'owner':row[8], 'time':row[9]})
+            if row[7]=='FREE': result.append({'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryDifficulty': row[5], 'tryCharacteristic':row[6],'status':row[7], 'owner':row[8], 'time':row[9]})
     file.close()
     return result
 
@@ -139,7 +139,7 @@ def getAllMissions():
     with file:
         reader = csv.reader(file)
         for row in reader:
-            if row[0]!='id': result.append({'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryAmount': row[5], 'tryCharechteristicstealth':row[6],'status':row[7], 'owner':row[8], 'time':row[9]})
+            if row[0]!='id': result.append({'id': row[0], 'name': row[1], 'description': row[2], 'price': row[3], 'reward': row[4],'tryAmount': row[5], 'tryCharacteristicstealth':row[6],'status':row[7], 'owner':row[8], 'time':row[9]})
     file.close()
     return result
 

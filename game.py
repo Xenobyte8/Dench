@@ -40,18 +40,18 @@ class Gangster:
 
 
 class Mission:
-   def __init__(self, name, description, price, reward, tryDifficulty, tryCharechteristic, time):
+   def __init__(self, name, description, price, reward, tryDifficulty, tryCharacteristic, time):
       self.id=uuid.uuid4()
       self.name=name
       self.description=description
       self.price=price
       self.reward=reward
       self.tryDifficulty=tryDifficulty
-      self.tryCharechteristic=tryCharechteristic
+      self.tryCharacteristic=tryCharacteristic
       self.status = 'FREE' # могут быть FREE, ACTIVE, FINISHED
       self.owner=0
       self.time=time
-      #addMission(self.id, self.name, self.description, self.price, self.reward, self.tryAmount, self.tryCharechteristic, self.status, self.owner, self.time)
+      #addMission(self.id, self.name, self.description, self.price, self.reward, self.tryAmount, self.tryCharacteristic, self.status, self.owner, self.time)
    
 
 
@@ -63,7 +63,7 @@ def checkMissionSuccess(missionId, gangstersId:'list' ):
       i=getGangster(i)
 
    for ster in gangsters:
-      tryGangster=random.randint(0, GangsterCharachteristic(ster['id'], mission['tryCharechteristic']))
+      tryGangster=random.randint(0, GangsterCharachteristic(ster['id'], mission['tryCharacteristic']))
       resultGangsters+=tryGangster
    if resultGangsters <  int(mission['tryDifficulty']): return False
    else: return True

@@ -1,4 +1,4 @@
-﻿id;name;description;price;reward;tryDifficulty;tryCharechteristic;status;owner;time
+﻿id;name;description;price;reward;tryDifficulty;tryCharacteristic;status;owner;time
 1;Ты;3;4;5;6;ф;FREE;82342003-0b0e-4d75-8626-75deec62417f;10
 2;2;3;4;5;6;7;ACTIVE;82342003-0b0e-4d75-8626-75deec62417f;10
 3;Пидор;3;4;5;6;7;ACTIVE;31ab9853-789e-46d9-b281-6b7b728742cb;10
