@@ -1,4 +1,5 @@
 import sqlite3
+import uuid
 
 def addPlayer(id, telegram_id, player_money):
     # Устанавливаем соединение с базой данных
@@ -39,6 +40,25 @@ def addMission(id,name,description,price,reward,tryDifficulty,tryCharacteristic,
         writer = csv.writer(file)
         writer.writerow([id,name,description,price,reward,tryDifficulty,tryCharacteristic,status,owner,time])
     file.close()
+
+def addHeadquaters(planet, owner):
+    id = uuid.uuid4()
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(
+                    f'''
+                    INSERT INTO headquarters (id, planet, owner) VALUES ('{id}', '{planet}', '{owner}')
+                    '''
+                    )
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            pass
+
 
 def getPlayer(id):
     result=False
@@ -205,3 +225,8 @@ def changeGangsterStatus(gangsterId, missionId, state: 'str'=['AVAILABE', 'MISSI
         writer.writerows(rows)
     file.close
     return result
+
+
+
+
+addHeadquaters('Uranus', '82342003-0b0e-4d75-8626-75deec62417f')
