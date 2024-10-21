@@ -104,7 +104,7 @@ def getPlayerByTg(telegram_id):
                     f"SELECT id FROM players where telegram_id = '{telegram_id}'"
                 )
                 player_id = cursor.fetchone()
-            result = player_id
+            result = player_id[0]
         except:
         # Ошибки будут приводить к автоматическому откату транзакции
             print('smth went wrong, transaction aborted')

@@ -30,7 +30,7 @@ async def get_player_by_telegram_id(msg: Message):
 @router.message(Command("newBro"))
 async def CreateGangster(msg: Message):
     player=getPlayerByTg(msg.from_user.id)
-    bro=Gangster(str(player['id']))
+    bro=Gangster(str(player))
     await msg.answer(str("Вот твой новый боец "+ str(bro)))
 
 @router.message(Command("getBros"))
