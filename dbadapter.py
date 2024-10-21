@@ -24,6 +24,7 @@ def addPlayer(id, telegram_id, player_money):
 
 
 def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission):
+    result = False
     # Устанавливаем соединение с базой данных
     with sqlite3.connect('data/database.db') as connection:
         cursor = connection.cursor()
@@ -31,12 +32,15 @@ def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,s
         # Начинаем транзакцию автоматически
             with connection:
                 # Выполняем операции
-                cursor.execute(f'''INSERT INTO players (id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission)
+                cursor.execute(f'''INSERT INTO gangsters (id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission)
                                     VALUES ('{id}','{owner}','{name}','{athletics}','{charisma}','{shooting}','{stealth}','{intelligence}','{state}','{mission}')'''
                                     )
-        except:
+                result = True
+        except Exception as e:
         # Ошибки будут приводить к автоматическому откату транзакции
+            print(e)
             pass
+    return result
 
 def addMission(id,name,description,price,reward,tryDifficulty,tryCharacteristic,status,owner,time):
     file = open('./files/missions.csv', 'a+', newline ='')
