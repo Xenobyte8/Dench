@@ -7,9 +7,9 @@ from aiogram import flags
 from aiogram.fsm.context import FSMContext
 import config
 from game import Gangster, Player
-from fileAdapter import getPlayerByTg, getAvailableMissions
+from fileAdapter import getAvailableMissions
 from states import GetMission
-from dbadapter import getGangstersByOwner
+from dbadapter import getGangstersByOwner, getPlayerByTg
 
 router = Router()
 
@@ -22,7 +22,10 @@ async def start_handler(msg: Message):
     except:
         await msg.answer("Кажется, ты уже у нас зарегистрирован.")
 
-
+@router.message(Command("getMe"))
+async def get_player_by_telegram_id(msg: Message):
+    player=getPlayerByTg(msg.from_user.id)
+    await msg.answer(str("Твой player_id: " + str(player)))
 
 @router.message(Command("newBro"))
 async def CreateGangster(msg: Message):

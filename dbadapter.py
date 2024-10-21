@@ -35,7 +35,7 @@ def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,s
                 cursor.execute(f'''INSERT INTO gangsters (id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission)
                                     VALUES ('{id}','{owner}','{name}','{athletics}','{charisma}','{shooting}','{stealth}','{intelligence}','{state}','{mission}')'''
                                     )
-                result = True
+            result = True
         except Exception as e:
         # Ошибки будут приводить к автоматическому откату транзакции
             print(e)
@@ -50,6 +50,7 @@ def addMission(id,name,description,price,reward,tryDifficulty,tryCharacteristic,
     file.close()
 
 def addHeadquaters(planet, owner):
+    result = False
     id = uuid.uuid4()
     # Устанавливаем соединение с базой данных
     with sqlite3.connect('data/database.db') as connection:
@@ -63,30 +64,50 @@ def addHeadquaters(planet, owner):
                     INSERT INTO headquarters (id, planet, owner) VALUES ('{id}', '{planet}', '{owner}')
                     '''
                     )
+            result = True
         except:
         # Ошибки будут приводить к автоматическому откату транзакции
             pass
-
-
-def getPlayer(id):
-    result=False
-    file = open('./files/players.csv', newline ='')
-    with file:
-        reader = csv.reader(file)
-        for row in reader:
-            if row[0]==str(id): result={'id': row[0], 'tgId': row[1], 'money': row[2]}
-    file.close()
     return result
 
+'''
+def getPlayer(id):
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(
+                    f"SELECT * FROM players where telegram_id = '{id}'"
+                )
+                player_id = cursor.fetchone()
+            result = gangsters_as_dicts
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            print('smth went wrong, transaction aborted')
+    return result
+    '''
 
-def getPlayerByTg(id):
+
+def getPlayerByTg(telegram_id):
     result=False
-    file = open('./files/players.csv', newline ='')
-    with file:
-        reader = csv.reader(file)
-        for row in reader:
-            if row[1]==str(id): result={'id': row[0], 'tgId': row[1], 'money': row[2]}
-    file.close()
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(
+                    f"SELECT id FROM players where telegram_id = '{telegram_id}'"
+                )
+                player_id = cursor.fetchone()
+            result = player_id
+        except:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            print('smth went wrong, transaction aborted')
     return result
 
 def getGangster(id):
@@ -184,23 +205,24 @@ def getGangstersByOwner(owner):
 
 def changeMissionStatus(id, state: 'str'=['FREE', 'ACTIVE', 'FINISHED'], owner=False):
     result=False
-    file = open('./files/missions.csv', newline ='')
-    with file:
-        reader = csv.reader(file)
-        rows = [row for row in reader]
-    file.close()
-    for row in rows:
-        if row[0]==str(id):
-            print (row[0])
-            print(str(id)) 
-            row[7]=str(state)
-            if owner: row[8]=str(owner) 
-            result=True
-
-    with open('./files/missions.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(rows)
-    file.close
+    # Устанавливаем соединение с базой данных
+    with sqlite3.connect('data/database.db') as connection:
+        cursor = connection.cursor()
+        try:
+        # Начинаем транзакцию автоматически
+            with connection:
+                # Выполняем операции
+                cursor.execute(f'''UPDATE TABLE missions
+                                    set status = '{state}',
+                                        owner = '{owner}'
+                                    where id = '{id}'    
+                               '''
+                                    )
+            result = True
+        except Exception as e:
+        # Ошибки будут приводить к автоматическому откату транзакции
+            print(e)
+            pass
     return result
 
 
