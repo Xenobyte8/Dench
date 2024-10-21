@@ -2,6 +2,7 @@ import sqlite3
 import uuid
 
 def addPlayer(id, telegram_id, player_money):
+    result = False
     # Устанавливаем соединение с базой данных
     with sqlite3.connect('data/database.db') as connection:
         cursor = connection.cursor()
@@ -14,10 +15,12 @@ def addPlayer(id, telegram_id, player_money):
                     INSERT INTO players (id, telegram_id, player_money) VALUES ('{id}', '{telegram_id}', '{player_money}')
                     '''
                     )
+            result = True
         except Exception as e:
         # Ошибки будут приводить к автоматическому откату транзакции
             print(e)
             pass
+    return result
 
 
 def addGangster(id,owner,name,athletics,charisma,shooting,stealth,intelligence,state,mission):

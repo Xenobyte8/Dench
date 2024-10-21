@@ -11,7 +11,13 @@ class Player:
       self.id=uuid.uuid4()
       self.tgId=tgId
       self.money=1000
-      addPlayer(self.id, self.tgId, self.money)
+      try:
+         if (addPlayer(self.id, self.tgId, self.money)):
+            pass
+         else:
+            raise ValueError('telegram_id is already registered')
+      except ValueError as exp:
+         print(exp)
 
 class Gangster:
    def __init__(self, owner, new=True):

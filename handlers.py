@@ -17,7 +17,7 @@ router = Router()
 @router.message(Command("start"))
 async def start_handler(msg: Message):
     try:
-        answer = Player(str(msg.from_user.id))
+        Player(str(msg.from_user.id))
         await msg.answer("Привет! Давай играть!)")
     except:
         await msg.answer("Кажется, ты уже у нас зарегистрирован.")
