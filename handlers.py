@@ -7,8 +7,9 @@ from aiogram import flags
 from aiogram.fsm.context import FSMContext
 import config
 from game import Gangster, Player
-from fileAdapter import getPlayerByTg, getGangstersByOwner, getAvailableMissions
+from fileAdapter import getPlayerByTg, getAvailableMissions
 from states import GetMission
+from dbadapter import getGangstersByOwner
 
 router = Router()
 

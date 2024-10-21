@@ -1,10 +1,9 @@
 import random
 import uuid
-from fileAdapter import addGangster, addMission, addPlayer, changeMissionStatus, changeGangsterStatus, getMission, getGangster, GangsterCharachteristic
+from fileAdapter import addMission, addPlayer, changeMissionStatus, changeGangsterStatus, getMission, getGangster, GangsterCharachteristic
 import asyncio
 from aiogram.types import CallbackQuery, ContentType, Message
-
-
+from dbadapter import addGangster
 
 
 class Player:
