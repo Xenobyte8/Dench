@@ -36,7 +36,7 @@ async def CreateGangster(msg: Message):
 @router.message(Command("getBros"))
 async def GetGangsters(msg: Message):
     player=getPlayerByTg(msg.from_user.id)
-    gangsters=getGangstersByOwner(str(player['id']))
+    gangsters=getGangstersByOwner(str(player))
     for i in gangsters:
         await msg.answer(str(i))
 
