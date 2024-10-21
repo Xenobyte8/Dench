@@ -195,7 +195,7 @@ def getGangstersByOwner(owner):
                     'state' : i[8],
                     'mission' : i[9],
                     }
-                gangsters_as_dicts.append(gangster_dict)
+                    gangsters_as_dicts.append(gangster_dict)
             result = gangsters_as_dicts
         except:
         # Ошибки будут приводить к автоматическому откату транзакции
