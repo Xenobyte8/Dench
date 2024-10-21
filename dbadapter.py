@@ -227,6 +227,3 @@ def changeGangsterStatus(gangsterId, missionId, state: 'str'=['AVAILABE', 'MISSI
     return result
 
 
-
-
-addHeadquaters('Uranus', '82342003-0b0e-4d75-8626-75deec62417f')
