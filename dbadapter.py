@@ -14,8 +14,9 @@ def addPlayer(id, telegram_id, player_money):
                     INSERT INTO players (id, telegram_id, player_money) VALUES ('{id}', '{telegram_id}', '{player_money}')
                     '''
                     )
-        except:
+        except Exception as e:
         # Ошибки будут приводить к автоматическому откату транзакции
+            print(e)
             pass
 
 
